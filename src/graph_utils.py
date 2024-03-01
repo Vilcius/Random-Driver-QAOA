@@ -4,6 +4,10 @@ Graph utilities.
 from queue import SimpleQueue
 from typing import Sequence
 
+import os
+from os import path
+
+from random import sample
 import networkx as nx
 import numpy as np
 from networkx import Graph
@@ -129,3 +133,305 @@ def find_non_isomorphic(graphs: Sequence) -> list[bool]:
             if nx.is_isomorphic(graphs[pivot], graphs[i]):
                 res[i] = False
     return res
+
+
+def generate_graphs():
+    num_graphs = 1000
+    max_attempts = 10 ** 10
+    nodes = 9
+    depth = 4
+    edge_prob = 0.1
+    out_path = f'graphs/main/nodes_{nodes}/depth_{depth}'
+
+    graphs = np.empty(num_graphs, dtype=object)
+    graphs_generated = 0
+    for i in range(max_attempts):
+        next_graph = nx.gnp_random_graph(nodes, edge_prob)
+        if not nx.is_connected(next_graph):
+            continue
+        if get_max_edge_depth(next_graph) != depth:
+            continue
+        if is_isomorphic(next_graph, graphs[:graphs_generated]):
+            continue
+        graphs[graphs_generated] = next_graph
+        graphs_generated += 1
+        print(f'{graphs_generated}')
+        if graphs_generated == num_graphs:
+            break
+    else:
+        raise 'Failed to generate connected set'
+    print('Generation done')
+
+    for i in range(len(graphs)):
+        nx.write_gml(graphs[i], f'{out_path}/{i}.gml')
+
+
+def generate_random_edge_graphs(g):
+    num_graphs = 10
+    max_attempts = 10 ** 3
+    nodes = 8
+    graph_path = f'graphs/main/all_{nodes}/graph_{g}/{g}.gml'
+    out_path = f'graphs/main/all_{nodes}/graph_{g}/random'
+    graph = nx.read_gml(graph_path)
+    m = nx.number_of_edges(graph)
+
+    graphs = np.empty(num_graphs+1, dtype=object)
+    graphs[0] = graph
+    graphs_generated = 1
+    for i in range(max_attempts):
+        next_graph = nx.gnm_random_graph(nodes, m)
+        if not nx.is_connected(next_graph):
+            continue
+        if is_isomorphic(next_graph, graphs[:graphs_generated]):
+            continue
+        graphs[graphs_generated] = next_graph
+        graphs_generated += 1
+        print(f'{graphs_generated-1}')
+        if graphs_generated == num_graphs+1:
+            break
+    # else:
+    #     raise 'Failed to generate connected set'
+    print('Generation done')
+
+    for i in range(graphs_generated-1):
+        nx.write_gml(graphs[i+1], f'{out_path}/{i}.gml')
+
+
+def generate_random_subgraphs(g):
+    num_graphs = 10
+    max_attempts = 100
+    nodes = 8
+    graph_path = f'graphs/main/all_{nodes}/graph_{g}/{g}.gml'
+    graph = nx.read_gml(graph_path)
+    m = nx.number_of_edges(graph)
+
+    out_path = f'graphs/main/all_{nodes}/graph_{g}/pseudo_random'
+
+    edge_frac = [1/4, 1/3, 1/2, 2/3, 3/4]
+    edge_count = [int(np.ceil(m * i)) for i in edge_frac]
+
+    graphs = np.empty(num_graphs*len(edge_count), dtype=object)
+    total_generated = 0
+    for mm in edge_count:
+        graphs_generated = 0
+        for i in range(max_attempts):
+            next_graph = nx.Graph()
+            next_graph.add_nodes_from(graph.nodes)
+            next_graph.add_edges_from(sample(list(graph.edges), mm))
+            # if not nx.is_connected(next_graph):
+            #     continue
+            if is_isomorphic(next_graph, graphs[:total_generated]):
+                continue
+            graphs[total_generated] = next_graph
+            graphs_generated += 1
+            total_generated += 1
+            print(f'{total_generated}')
+            if graphs_generated == num_graphs:
+                break
+    # else:
+    #     raise 'Failed to generate connected set'
+    print('Generation done')
+
+    for i in range(total_generated):
+        nx.write_gml(graphs[i], f'{out_path}/{i}.gml')
+
+
+def generate_remove_triangle_graphs(g):
+    num_graphs = 4
+    # max_attempts = 10 ** 4
+    nodes = 8
+    graph_path = f'graphs/main/all_{nodes}/graph_{g}/{g}.gml'
+    graph = nx.read_gml(graph_path)
+
+    out_path = f'graphs/main/all_{nodes}/graph_{g}/remove_triangle'
+
+    graphs = np.empty(num_graphs, dtype=object)
+    triangles = [clique for clique in nx.enumerate_all_cliques(graph) if len(clique) == 3]
+    graphs_generated = 0
+
+    cases = []
+
+    if len(triangles) > 0:
+        if len(triangles) == 1:
+            common = {(i, j): sorted(nx.common_neighbors(graph, i, j)) for (i, j) in graph.edges}
+            ncommon = {e: common[e] for e in common if len(common[e]) > 0}
+            sorted_common = sorted(ncommon, key=lambda e: len(ncommon[e]), reverse=True)
+
+            cases.append('most')
+            next_graph = graph.copy()
+            removed_edge = sample(sorted_common, 1)[0]
+            next_graph.remove_edge(removed_edge[0], removed_edge[1])
+
+            graphs[graphs_generated] = next_graph
+            print(f'{cases[graphs_generated]}')
+            graphs_generated += 1
+
+        else:
+            for case in ['all', 'random']:
+                if case == 'random':
+                    common = {(i, j): sorted(nx.common_neighbors(graph, i, j)) for (i, j) in graph.edges}
+                    ncommon = {e: common[e] for e in common if len(common[e]) > 0}
+                    sorted_common = sorted(ncommon, key=lambda e: len(ncommon[e]), reverse=True)
+
+                    cases.append('random')
+                    next_graph = graph.copy()
+                    removed_edge = sample(sorted_common, 1)[0]
+                    next_graph.remove_edge(removed_edge[0], removed_edge[1])
+
+                    graphs[graphs_generated] = next_graph
+                    print(f'{cases[graphs_generated]}')
+                    graphs_generated += 1
+
+                else:
+                    common = {(i, j): sorted(nx.common_neighbors(graph, i, j)) for (i, j) in graph.edges}
+                    ncommon = {e: common[e] for e in common if len(common[e]) > 0}
+                    sorted_common = sorted(ncommon, key=lambda e: len(ncommon[e]), reverse=True)
+
+                    n_removed = 0
+                    next_graph = graph.copy()
+
+                    while len(ncommon) > 0:
+                        removed_edge = sorted_common[0]
+                        next_graph.remove_edge(removed_edge[0], removed_edge[1])
+                        n_removed += 1
+
+                        if n_removed == 1:
+                            cases.append('most')
+                            graphs[graphs_generated] = next_graph.copy()
+                            print(f'{cases[graphs_generated]}')
+                            graphs_generated += 1
+
+                        if n_removed == 2:
+                            cases.append('2_most')
+                            graphs[graphs_generated] = next_graph.copy()
+                            print(f'{cases[graphs_generated]}')
+                            graphs_generated += 1
+
+                        common = {(i, j): sorted(nx.common_neighbors(next_graph, i, j)) for (i, j) in next_graph.edges}
+                        ncommon = {e: common[e] for e in common if len(common[e]) > 0}
+                        sorted_common = sorted(ncommon, key=lambda e: len(ncommon[e]), reverse=True)
+
+                    cases.append('all')
+                    graphs[graphs_generated] = next_graph
+                    print(f'{cases[graphs_generated]}')
+                    graphs_generated += 1
+
+    print('Generation done')
+
+    for i, c in enumerate(cases):
+        nx.write_gml(graphs[i], f'{out_path}/{c}.gml')
+
+
+def generate_remove_random_edge_from_max_degree_vertex(g):
+    num_graphs = 5
+    nodes = 8
+    max_attempts = 20
+    graph_path = f'graphs/main/all_{nodes}/graph_{g}/{g}.gml'
+    graph = nx.read_gml(graph_path)
+
+    out_path = f'graphs/main/all_{nodes}/graph_{g}/max_degree_most'
+    if not path.exists(out_path):
+        os.makedirs(out_path)
+
+    graphs = np.empty(num_graphs+1, dtype=object)
+    graphs[0] = graph
+    graphs_generated = 1
+
+    max_degree = max(dict(graph.degree).values())
+    max_degree_vertices = [v for v, d in graph.degree if d == max_degree]
+    for i in range(max_attempts):
+        max_degree_vertex = sample(max_degree_vertices, 1)[0]
+        edges = list(graph.edges(max_degree_vertex))
+
+        next_graph = graph.copy()
+        edge = sample(edges, 1)[0]
+        next_graph.remove_edge(*edge)
+
+        if is_isomorphic(next_graph, graphs[:graphs_generated]):
+            continue
+        graphs[graphs_generated] = next_graph
+        graphs_generated += 1
+        print(f'{graphs_generated-1}')
+        if graphs_generated == num_graphs+1:
+            break
+    print('Generation done')
+
+    for i in range(graphs_generated-1):
+        nx.write_gml(graphs[i+1], f'{out_path}/{i}.gml')
+
+
+def remove_2_random_edges_from_max_degree_vertex_other(graph):
+    num_graphs = 5
+    nodes = 8
+    max_attempts = 20
+    graph_path = f'graphs/main/all_{nodes}/graph_{graph}/{graph}.gml'
+    graph = nx.read_gml(graph_path)
+
+    out_path = f'graphs/main/all_{nodes}/graph_{graph}/max_degree_2_most_other'
+    if not path.exists(out_path):
+        os.makedirs(out_path)
+
+    graphs = np.empty(num_graphs+1, dtype=object)
+    graphs[0] = graph
+    graphs_generated = 1
+
+    for i in range(max_attempts):
+        next_graph = graph.copy()
+        for i in range(2):
+            max_degree = max(dict(next_graph.degree).values())
+            max_degree_vertices = [v for v, d in next_graph.degree if d == max_degree]
+            max_degree_vertex = sample(max_degree_vertices, 1)[0]
+            edges = list(next_graph.edges(max_degree_vertex))
+
+            edge = sample(edges, 1)[0]
+            next_graph.remove_edge(*edge)
+
+        if is_isomorphic(next_graph, graphs[:graphs_generated]):
+            continue
+        graphs[graphs_generated] = next_graph
+        graphs_generated += 1
+        print(f'{graphs_generated-1}')
+        if graphs_generated == num_graphs+1:
+            break
+    print('Generation done')
+
+    for i in range(graphs_generated-1):
+        nx.write_gml(graphs[i+1], f'{out_path}/{i}.gml')
+
+
+def remove_all_edges_from_max_degree_vertex(graph):
+    num_graphs = 5
+    nodes = 8
+    max_attempts = 20
+    graph_path = f'graphs/main/all_{nodes}/graph_{graph}/{graph}.gml'
+    graph = nx.read_gml(graph_path)
+
+    out_path = f'graphs/main/all_{nodes}/graph_{graph}/max_degree_all'
+    if not path.exists(out_path):
+        os.makedirs(out_path)
+
+    graphs = np.empty(num_graphs+1, dtype=object)
+    graphs[0] = graph
+    graphs_generated = 1
+
+    max_degree = max(dict(graph.degree).values())
+    max_degree_vertices = [v for v, d in graph.degree if d == max_degree]
+    for i in range(max_attempts):
+        max_degree_vertex = sample(max_degree_vertices, 1)[0]
+        edges = list(graph.edges(max_degree_vertex))
+
+        next_graph = graph.copy()
+        next_graph.remove_edges_from(edges)
+
+        if is_isomorphic(next_graph, graphs[:graphs_generated]):
+            continue
+        graphs[graphs_generated] = next_graph
+        graphs_generated += 1
+        print(f'{graphs_generated-1}')
+        if graphs_generated == num_graphs+1:
+            break
+    print('Generation done')
+
+    for i in range(graphs_generated-1):
+        nx.write_gml(graphs[i+1], f'{out_path}/{i}.gml')
+
