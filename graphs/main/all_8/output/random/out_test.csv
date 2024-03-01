@@ -1,0 +1,51 @@
+path,random_path,p_1,p_1_angles,p_1_nfev
+graphs/main/all_8/graph_0/0.gml,graphs/main/all_8/graph_0/random/0.gml,0.5636158065084979,[0.62108888 1.87819138],69
+graphs/main/all_8/graph_0/0.gml,graphs/main/all_8/graph_0/random/1.gml,0.5704965204411602,[-2.11875104  2.24990503],30
+graphs/main/all_8/graph_0/0.gml,graphs/main/all_8/graph_0/random/2.gml,0.599679115075058,[ 2.2595839  -2.08654986],27
+graphs/main/all_8/graph_0/0.gml,graphs/main/all_8/graph_0/random/3.gml,0.5141844175694993,[ 0.4803592  -1.33644585],96
+graphs/main/all_8/graph_0/0.gml,graphs/main/all_8/graph_0/random/4.gml,0.5752370221286787,[-7.22496743 -0.3778272 ],60
+graphs/main/all_8/graph_0/0.gml,graphs/main/all_8/graph_0/random/5.gml,0.546047590928887,[-2.04589127 -2.00862672],39
+graphs/main/all_8/graph_0/0.gml,graphs/main/all_8/graph_0/random/6.gml,0.5294243219418946,[-2.49889652  2.79291345],27
+graphs/main/all_8/graph_0/0.gml,graphs/main/all_8/graph_0/random/7.gml,0.535714285713926,[1.56868666 0.39217262],24
+graphs/main/all_8/graph_0/0.gml,graphs/main/all_8/graph_0/random/8.gml,0.5755410746335812,[ 2.30843322 -1.97862312],24
+graphs/main/all_8/graph_0/0.gml,graphs/main/all_8/graph_0/random/9.gml,0.535714285713926,[1.56868666 0.39217262],24
+graphs/main/all_8/graph_1/1.gml,graphs/main/all_8/graph_1/random/0.gml,0.5463942180598806,[-1.04719753  2.74889357],30
+graphs/main/all_8/graph_1/1.gml,graphs/main/all_8/graph_1/random/1.gml,0.5317986224291661,[-3.99484863  2.77556534],42
+graphs/main/all_8/graph_1/1.gml,graphs/main/all_8/graph_1/random/2.gml,0.582760552131383,[ 2.19922815 -2.09355176],27
+graphs/main/all_8/graph_1/1.gml,graphs/main/all_8/graph_1/random/3.gml,0.6016675248040413,[-0.93576312 -0.35394622],27
+graphs/main/all_8/graph_1/1.gml,graphs/main/all_8/graph_1/random/4.gml,0.5230702791167744,[-2.54333919 -0.29912672],30
+graphs/main/all_8/graph_1/1.gml,graphs/main/all_8/graph_1/random/5.gml,0.5549857399228214,[-2.18627601  0.78539817],21
+graphs/main/all_8/graph_1/1.gml,graphs/main/all_8/graph_1/random/6.gml,0.5459927921057892,[-2.35650467  2.70065915],27
+graphs/main/all_8/graph_1/1.gml,graphs/main/all_8/graph_1/random/7.gml,0.5223163118646432,[0.79006606 3.37987382],57
+graphs/main/all_8/graph_1/1.gml,graphs/main/all_8/graph_1/random/8.gml,0.5682206936003753,[-0.9889681  -0.35606048],48
+graphs/main/all_8/graph_1/1.gml,graphs/main/all_8/graph_1/random/9.gml,0.5516062559087249,[-0.76730949  2.82302694],33
+graphs/main/all_8/graph_2/2.gml,graphs/main/all_8/graph_2/random/0.gml,0.6129356708844576,[1.23404965 1.94417083],30
+graphs/main/all_8/graph_2/2.gml,graphs/main/all_8/graph_2/random/1.gml,0.5942582611376361,[2.41115335 1.8869196 ],42
+graphs/main/all_8/graph_2/2.gml,graphs/main/all_8/graph_2/random/2.gml,0.6546264596663139,[-0.57414183 -1.88471959],42
+graphs/main/all_8/graph_2/2.gml,graphs/main/all_8/graph_2/random/3.gml,0.6468040968816519,[ 0.70210539 -2.80147279],27
+graphs/main/all_8/graph_2/2.gml,graphs/main/all_8/graph_2/random/4.gml,0.6752832151107856,[-0.72439912 -1.92230877],24
+graphs/main/all_8/graph_2/2.gml,graphs/main/all_8/graph_2/random/5.gml,0.6410073996312595,[2.20917995 2.1409075 ],27
+graphs/main/all_8/graph_2/2.gml,graphs/main/all_8/graph_2/random/6.gml,0.6430180326826196,[-2.27144693  1.96766609],27
+graphs/main/all_8/graph_2/2.gml,graphs/main/all_8/graph_2/random/7.gml,0.6290066784285014,[-1.00531265  1.23054092],39
+graphs/main/all_8/graph_2/2.gml,graphs/main/all_8/graph_2/random/8.gml,0.6290066784285016,[1.00531265 0.34025541],48
+graphs/main/all_8/graph_2/2.gml,graphs/main/all_8/graph_2/random/9.gml,0.6071428569388811,[-1.56044623  1.18065598],51
+graphs/main/all_8/graph_3/3.gml,graphs/main/all_8/graph_3/random/0.gml,0.5332150523453096,[-2.41079806  1.20539904],39
+graphs/main/all_8/graph_3/3.gml,graphs/main/all_8/graph_3/random/1.gml,0.6095233785010397,[ 0.81939451 -2.74889358],33
+graphs/main/all_8/graph_3/3.gml,graphs/main/all_8/graph_3/random/2.gml,0.5316525484350058,[-2.21615254  0.372475  ],39
+graphs/main/all_8/graph_3/3.gml,graphs/main/all_8/graph_3/random/3.gml,0.5630558727526657,[ 2.35619449 -0.36161034],30
+graphs/main/all_8/graph_3/3.gml,graphs/main/all_8/graph_3/random/4.gml,0.5999431242412275,[-0.8412634   1.20738786],24
+graphs/main/all_8/graph_3/3.gml,graphs/main/all_8/graph_3/random/5.gml,0.5192066549207329,[ 0.93090449 -2.94287531],45
+graphs/main/all_8/graph_3/3.gml,graphs/main/all_8/graph_3/random/6.gml,0.5924135042780908,[-0.74998111  1.20719394],42
+graphs/main/all_8/graph_3/3.gml,graphs/main/all_8/graph_3/random/7.gml,0.5357142857142857,[ 1.57079634 -2.74889358],39
+graphs/main/all_8/graph_3/3.gml,graphs/main/all_8/graph_3/random/8.gml,0.6189353813137701,[-0.90455691 -1.96349541],30
+graphs/main/all_8/graph_3/3.gml,graphs/main/all_8/graph_3/random/9.gml,0.5357142857141495,[ 1.57245752 -1.17768125],21
+graphs/main/all_8/graph_4/4.gml,graphs/main/all_8/graph_4/random/0.gml,0.5718934004581653,[-2.23256036 -2.61692189],27
+graphs/main/all_8/graph_4/4.gml,graphs/main/all_8/graph_4/random/1.gml,0.5463942180598806,[26.17993876 11.38827337],66
+graphs/main/all_8/graph_4/4.gml,graphs/main/all_8/graph_4/random/2.gml,0.5777205349171395,[0.78539816 1.89869542],30
+graphs/main/all_8/graph_4/4.gml,graphs/main/all_8/graph_4/random/3.gml,0.5316525484350059,[2.21615254 1.19832135],30
+graphs/main/all_8/graph_4/4.gml,graphs/main/all_8/graph_4/random/4.gml,0.6042105697985958,[ 0.89164867 -2.76782969],54
+graphs/main/all_8/graph_4/4.gml,graphs/main/all_8/graph_4/random/5.gml,0.5578307967515865,[4.00437706 2.22430317],33
+graphs/main/all_8/graph_4/4.gml,graphs/main/all_8/graph_4/random/6.gml,0.561152625983498,[-0.92777696 -0.34820561],30
+graphs/main/all_8/graph_4/4.gml,graphs/main/all_8/graph_4/random/7.gml,0.5095638941401298,[1.86491656 0.78539819],27
+graphs/main/all_8/graph_4/4.gml,graphs/main/all_8/graph_4/random/8.gml,0.5622778219419368,[-3.83533242  2.75198651],102
+graphs/main/all_8/graph_4/4.gml,graphs/main/all_8/graph_4/random/9.gml,0.5167506559687559,[-0.48398549 -1.84249905],33
